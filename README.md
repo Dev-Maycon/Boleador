@@ -7,12 +7,6 @@ plano de controle e instrução de inspeção.
 **O desenho nunca sai da sua máquina.** Não há upload, servidor de aplicação, banco de dados
 nem cadastro: tudo roda no navegador.
 
-🔗 **[Abrir a ferramenta](https://SEU-PROJETO.vercel.app)** · 📖 **[Manual e documentação](https://SEU-PROJETO.vercel.app/docs.html)**
-
-<!-- TROCAR: substitua as URLs acima e adicione aqui uma captura de tela ou GIF do boleamento -->
-
----
-
 ## Recursos
 
 - PDF com várias páginas ou imagem PNG / JPG
