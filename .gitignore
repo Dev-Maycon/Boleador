@@ -1,0 +1,7 @@
+vendor/pdf.min.js
+vendor/pdf.worker.min.js
+vendor/pdf-lib.min.js
+.vercel
+.DS_Store
+Thumbs.db
+node_modules/

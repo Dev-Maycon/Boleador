@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sobre — Boleador de Desenho</title>
+<meta name="description" content="Por que o Boleador de Desenho existe, como funciona e quem mantém o projeto.">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%23fff' stroke='%231B49C4' stroke-width='3'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='16' font-weight='700' text-anchor='middle' fill='%231B49C4'%3E1%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/boleador.css">
+</head>
+<body class="pagina-docs">
+
+<header class="titleblock">
+  <div class="mark">
+    <b>Boleador</b>
+    <span>Sobre o projeto</span>
+  </div>
+  <nav class="docnav">
+    <a class="tool" href="docs.html">Manual</a>
+    <a class="tool" href="docs.html#privacidade">Privacidade</a>
+    <a class="tool" href="sobre.html" aria-current="page">Sobre</a>
+    <a class="tool" href="contato.html">Contato</a>
+  </nav>
+  <a class="tool primary abrir-app" href="index.html">Abrir a ferramenta</a>
+</header>
+
+<div class="docwrap">
+
+  <aside class="sumario">
+    <p class="rotulo">Nesta página</p>
+    <ul>
+      <li><a href="#problema">O problema</a></li>
+      <li><a href="#solucao">O que a ferramenta faz</a></li>
+      <li><a href="#principios">Princípios do projeto</a></li>
+      <li><a href="#tecnologia">Como foi construída</a></li>
+      <li><a href="#autor">Quem mantém</a></li>
+      <li><a href="#versoes">Histórico de versões</a></li>
+      <li><a href="#limites">O que ela não é</a></li>
+    </ul>
+    <p class="rotulo">Documentos</p>
+    <ul>
+      <li><a href="docs.html">Manual completo</a></li>
+      <li><a href="docs.html#privacidade">Privacidade e dados</a></li>
+      <li><a href="contato.html">Falar com o autor</a></li>
+    </ul>
+  </aside>
+
+  <main class="conteudo">
+    <h1>Sobre o Boleador</h1>
+
+    <p class="lead">Uma ferramenta pequena, feita para resolver uma tarefa específica do dia a
+    dia da qualidade: marcar as características de um desenho técnico com balões numerados,
+    sem instalar nada e sem tirar o desenho de dentro da empresa.</p>
+
+    <h2 id="problema">O problema</h2>
+    <p>Todo PPAP começa igual: alguém precisa numerar as cotas do desenho para amarrar o
+    relatório dimensional, o plano de controle e a instrução de inspeção. Na prática, isso
+    costuma ser feito de três jeitos, e nenhum é bom.</p>
+    <ul>
+      <li><strong>Imprimir e marcar à caneta</strong>, depois digitalizar. Funciona, mas some
+        na primeira revisão do desenho e ninguém consegue reaproveitar.</li>
+      <li><strong>Software de PDF licenciado</strong>, que faz muito mais do que o necessário,
+        custa por assento e raramente está instalado na máquina de quem precisa.</li>
+      <li><strong>Ferramenta on-line de terceiro</strong>, que resolve rápido — desde que você
+        aceite subir o desenho do cliente para um servidor que não é seu. Com desenho sob
+        acordo de confidencialidade, isso simplesmente não é uma opção.</li>
+    </ul>
+
+    <h2 id="solucao">O que a ferramenta faz</h2>
+    <p>Abre o desenho em PDF ou imagem, marca os balões no ponto do clique e devolve o desenho
+    boleado em PDF ou PNG. A numeração é automática, o balão pode ser arrastado, e o comando
+    <strong>Renumerar</strong> reorganiza a sequência na ordem de leitura do desenho, de cima
+    para baixo e da esquerda para a direita.</p>
+    <p>A exportação em PDF grava os balões como vetor <em>sobre</em> o desenho original, sem
+    rasterizar: o arquivo do cliente continua nítido e pesquisável, e o resultado pode ir
+    direto para o dossiê. O passo a passo completo está no <a href="docs.html">manual</a>.</p>
+
+    <h2 id="principios">Princípios do projeto</h2>
+    <div class="tabela">
+      <table>
+        <thead><tr><th>Princípio</th><th>Como se traduz na prática</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>O desenho é do cliente</td>
+            <td>Nenhum upload. O arquivo é lido pelo navegador, fica na memória da aba e some ao fechar. Sem servidor de aplicação, sem banco de dados, sem nuvem</td>
+          </tr>
+          <tr>
+            <td>Sem atrito</td>
+            <td>Sem instalação, sem cadastro, sem login. Abre e usa</td>
+          </tr>
+          <tr>
+            <td>Uma tarefa, bem feita</td>
+            <td>Bolear desenho. O preenchimento dos valores continua no formulário dimensional que a empresa já usa</td>
+          </tr>
+          <tr>
+            <td>Auditável</td>
+            <td>Código aberto sob licença MIT, sem etapa de build: o que está publicado é exatamente o que a TI consegue ler</td>
+          </tr>
+          <tr>
+            <td>Funciona em rede fechada</td>
+            <td>Modo offline documentado, com as bibliotecas hospedadas junto do projeto</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="tecnologia">Como foi construída</h2>
+    <p>HTML, CSS e JavaScript, sem framework e sem etapa de build. O desenho é renderizado com
+    <strong>pdf.js</strong> e a gravação dos balões em PDF usa <strong>pdf-lib</strong> — as
+    duas rodando no navegador. As posições dos balões são guardadas em coordenadas relativas à
+    página, o que faz a marcação cair no mesmo lugar em qualquer zoom, em qualquer resolução de
+    tela e na exportação, inclusive em páginas giradas.</p>
+    <p>A opção por não ter build não é preguiça: é o que permite a uma área de TI abrir os
+    arquivos, ler o código e liberar o uso sem depender de um pacote compilado que ninguém
+    inspeciona.</p>
+
+    <h2 id="autor">Quem mantém</h2>
+    <!-- TROCAR: ajuste o texto abaixo com a sua descrição e os seus links -->
+    <div class="perfil">
+      <p class="nome">Maycon Coutinho</p>
+      <p>Profissional de engenharia da qualidade com mais de 15 anos no setor automotivo
+      brasileiro, atuando com PPAP, APQP, FMEA, MSA, SPC e 8D em fornecimento para montadoras,
+      sob IATF 16949. Black Belt em Seis Sigma.</p>
+      <p>O Boleador nasceu de uma tarefa repetitiva do próprio trabalho e é mantido como
+      projeto aberto, para que outras equipes de qualidade possam usar sem custo e sem abrir
+      mão da confidencialidade do desenho.</p>
+      <p class="links">
+        <a href="contato.html">Contato</a> ·
+        <a href="https://www.linkedin.com/in/SEU-PERFIL" target="_blank" rel="noopener">LinkedIn</a> ·
+        <a href="https://github.com/SEU-USUARIO/boleador" target="_blank" rel="noopener">Código-fonte</a>
+      </p>
+    </div>
+
+    <h2 id="versoes">Histórico de versões</h2>
+    <div class="tabela">
+      <table>
+        <thead><tr><th>Versão</th><th>Mudanças</th></tr></thead>
+        <tbody>
+          <tr><td><code>1.0.0</code></td><td>Primeira versão distribuível: HTML, CSS e JS separados, documentação e declaração de privacidade</td></tr>
+          <tr><td><code>1.1.0</code></td><td>Cores preto, vermelho e azul; exportação em PDF vetorial sobre o desenho original</td></tr>
+          <tr><td><code>1.2.0</code></td><td>Publicação estática com cabeçalhos de segurança; página de documentação</td></tr>
+          <tr><td><code>1.2.1</code></td><td>Documentação refeita em HTML e CSS, sem dependência de leitura de arquivos</td></tr>
+          <tr><td><code>1.3.0</code></td><td>Páginas Sobre e Contato</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="limites">O que ela não é</h2>
+    <p>O Boleador marca posições no desenho. Ele <strong>não</strong> substitui o registro
+    oficial de características do sistema da qualidade, não lê cotas automaticamente, não
+    calcula capabilidade e não gera o relatório dimensional. A conferência entre os balões e o
+    formulário continua sendo responsabilidade de quem assina o documento.</p>
+    <p>Sugestões sobre o que deveria existir na próxima versão são bem-vindas — a
+    <a href="contato.html">página de contato</a> explica o que enviar.</p>
+
+    <p class="ver">Boleador de Desenho — versão 1.3.0 · licença MIT</p>
+  </main>
+</div>
+
+</body>
+</html>

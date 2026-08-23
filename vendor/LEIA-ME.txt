@@ -1,0 +1,21 @@
+Pasta para uso offline (opcional)
+=================================
+
+Coloque aqui, para operar sem qualquer acesso à internet:
+
+  pdf.min.js
+  pdf.worker.min.js
+
+Versão de referência do pdf.js: 3.11.174
+
+O index.html tenta carregar vendor/pdf.min.js primeiro. Se o arquivo não
+existir, a página recorre automaticamente ao CDN — nenhuma alteração de
+código é necessária em nenhum dos dois casos.
+
+Para eliminar também o download das fontes, remova as linhas <link> do
+Google Fonts no index.html.
+
+A partir da versao 1.1.0, para exportar em PDF sem acesso a internet,
+adicione tambem:
+
+  pdf-lib.min.js     (pdf-lib 1.17.1)
