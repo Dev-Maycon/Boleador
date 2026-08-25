@@ -1,6 +1,6 @@
 {
   "name": "boleador-desenho",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
   "description": "Balonamento (boleamento) de desenhos técnicos em PDF ou imagem, 100% no navegador. O desenho não sai da máquina do usuário.",
   "keywords": ["boleamento", "balonamento", "ballooning", "desenho tecnico", "ppap", "qualidade", "iatf-16949"],

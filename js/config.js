@@ -9,7 +9,7 @@
  * da biblioteca é baixado. Veja o README, seção "Modo offline".
  */
 window.BOLEADOR_CFG = {
-  versao: "1.3.0",
+  versao: "1.4.0",
 
   pdfjsLocal: false,
   pdfLibLocal: false,

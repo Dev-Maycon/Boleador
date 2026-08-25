@@ -32,7 +32,9 @@
     B.on("mudou",     function () { atualizarCarimbo(); atualizarSelecao(); });
     B.on("selecao",   atualizarSelecao);
     B.on("documento", function () { atualizarCarimbo(); atualizarSelecao(); });
+    B.on("idioma",    function () { atualizarModo(); atualizarCarimbo(); atualizarSelecao(); });
 
+    atualizarModo();
     atualizarCarimbo();
   }
 
@@ -72,9 +74,8 @@
   function ligarFerramentas() {
     B.$("btnMode").addEventListener("click", function () {
       E.modo = E.modo === "add" ? "select" : "add";
-      this.setAttribute("aria-pressed", E.modo === "add" ? "true" : "false");
-      this.textContent = "Modo: " + (E.modo === "add" ? "bolear" : "selecionar");
       folha.classList.toggle("adding", E.modo === "add");
+      atualizarModo();
     });
 
     B.$("selColor").addEventListener("change", function () {
@@ -94,13 +95,13 @@
 
     B.$("numStart").addEventListener("change", function () {
       if (!E.baloes.length) { B.baloes.sincronizarNumero(); atualizarCarimbo(); }
-      else B.aviso("O número inicial vale a partir de um desenho vazio. Use Renumerar para reordenar o que já existe.");
+      else B.aviso(B.t("msgInicioAvisoVazio"));
     });
 
     B.$("btnRenumber").addEventListener("click", function () {
       if (!E.baloes.length) return;
       B.baloes.renumerar();
-      B.aviso("Renumerado na ordem de leitura do desenho (cima → baixo, esquerda → direita).");
+      B.aviso(B.t("msgRenumerado"));
     });
 
     B.$("btnUndo").addEventListener("click", desfazer);
@@ -108,7 +109,7 @@
     B.$("btnClear").addEventListener("click", function () {
       var n = B.baloes.daPagina().length;
       if (!n) return;
-      if (!confirm("Apagar os " + n + " balões da página " + E.pagina + "?")) return;
+      if (!confirm(B.t("confirmLimparPagina", { n: n, pagina: E.pagina }))) return;
       B.baloes.limparPagina();
     });
 
@@ -117,7 +118,7 @@
   }
 
   function desfazer() {
-    if (!B.historico.desfazer()) { B.aviso("Nada para desfazer."); return; }
+    if (!B.historico.desfazer()) { B.aviso(B.t("msgNadaDesfazer")); return; }
     B.baloes.desenhar();
     atualizarCarimbo();
     atualizarSelecao();
@@ -197,9 +198,15 @@
   }
 
   /* ---------- carimbo e status ---------- */
+  function atualizarModo() {
+    var btn = B.$("btnMode");
+    btn.setAttribute("aria-pressed", E.modo === "add" ? "true" : "false");
+    btn.textContent = B.t(E.modo === "add" ? "modoBolear" : "modoSelecionar");
+  }
+
   function atualizarCarimbo() {
     B.$("fDoc").textContent   = E.nome || "—";
-    B.$("fPage").textContent  = E.tipo ? (E.pagina + " de " + E.paginas) : "—";
+    B.$("fPage").textContent  = E.tipo ? (E.pagina + " / " + E.paginas) : "—";
     B.$("fCount").textContent = E.baloes.length;
     B.$("fNext").textContent  = E.proximo;
     B.$("pageLabel").textContent = E.tipo ? (E.pagina + "/" + E.paginas) : "–/–";
@@ -211,8 +218,8 @@
   function atualizarSelecao() {
     var b = E.selecionado && B.baloes.porId(E.selecionado);
     B.$("stSel").textContent = b
-      ? ("Balão " + b.num + " · " + B.nomeCorDe(b))
-      : "Nenhum balão selecionado";
+      ? B.t("baloSelecionado", { num: b.num, cor: B.nomeCorDe(b) })
+      : B.t("semSelecao");
   }
 
 })(window.Boleador);
