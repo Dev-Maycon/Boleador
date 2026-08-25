@@ -44,6 +44,17 @@ kbd{
 .field.grow{flex:1}
 .titleblock .tool.ghost{margin:8px 12px;align-self:center}
 
+.langswitch{display:flex;align-items:center;gap:2px;align-self:center;margin:8px 6px;border:1px solid #434C57;border-radius:2px;overflow:hidden}
+.lang-btn{
+  display:inline-flex;align-items:center;gap:5px;background:transparent;border:0;color:#9AA3AC;
+  padding:6px 9px;cursor:pointer;font-family:var(--cond);font-size:12px;letter-spacing:.06em;
+  text-transform:uppercase;transition:background .12s ease,color .12s ease;
+}
+.lang-btn .flag{font-size:14px;line-height:1}
+.lang-btn:hover{background:#3E4854;color:#E4E8EC}
+.lang-btn[aria-pressed="true"]{background:var(--blue);color:#fff}
+.lang-btn:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+
 /* ---------- régua de ferramentas ---------- */
 .rail{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:7px 10px;background:var(--rail);border-bottom:1px solid #000;color:#DDE2E7}
 .rail .sep{width:1px;align-self:stretch;background:#3D454F;margin:0 4px}

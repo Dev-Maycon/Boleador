@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Boleador de Desenho</title>
-<meta name="description" content="Ferramenta local para balonamento (boleamento) de desenhos técnicos em PDF ou imagem. O desenho não sai do computador.">
+<title id="tituloPagina">Boleador de Desenho</title>
+<meta id="metaDescricao" name="description" content="Ferramenta local para balonamento (boleamento) de desenhos técnicos em PDF ou imagem. O desenho não sai do computador.">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%23fff' stroke='%231B49C4' stroke-width='3'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='16' font-weight='700' text-anchor='middle' fill='%231B49C4'%3E1%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,6 +15,7 @@
 <!-- Configuração e carregamento do leitor de PDF.
      Se existir vendor/pdf.min.js (modo offline), ele é usado; senão, cai para o CDN. -->
 <script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
 <script src="vendor/pdf.min.js"
         onload="window.BOLEADOR_CFG.pdfjsLocal = true"
         onerror="window.BOLEADOR_CFG.carregarPdfjs()"></script>
@@ -27,71 +28,79 @@
 <header class="titleblock">
   <div class="mark">
     <b>Boleador</b>
-    <span>Balonamento de desenho</span>
+    <span data-i18n="tagline">Balonamento de desenho</span>
   </div>
   <div class="fields">
-    <div class="field grow"><label>Desenho</label><output id="fDoc">—</output></div>
-    <div class="field"><label>Página</label><output id="fPage">—</output></div>
-    <div class="field"><label>Balões</label><output id="fCount">0</output></div>
-    <div class="field"><label>Próximo nº</label><output id="fNext">1</output></div>
-    <div class="field"><label>Versão</label><output id="fVer">—</output></div>
+    <div class="field grow"><label data-i18n="campoDesenho">Desenho</label><output id="fDoc">—</output></div>
+    <div class="field"><label data-i18n="campoPagina">Página</label><output id="fPage">—</output></div>
+    <div class="field"><label data-i18n="campoBaloes">Balões</label><output id="fCount">0</output></div>
+    <div class="field"><label data-i18n="campoProximo">Próximo nº</label><output id="fNext">1</output></div>
+    <div class="field"><label data-i18n="campoVersao">Versão</label><output id="fVer">—</output></div>
   </div>
-  <a class="tool ghost" href="docs.html" title="Manual e declaração de privacidade">Documentação</a>
-  <a class="tool ghost" href="sobre.html" title="Sobre o projeto e contato">Sobre</a>
-  <button class="tool ghost" id="btnAjuda" title="Ajuda, atalhos e privacidade">Ajuda</button>
+  <div class="langswitch" role="group" aria-label="Idioma / Language">
+    <button type="button" class="lang-btn" id="btnLangPt" data-lang="pt" aria-pressed="true" title="Português">
+      <span class="flag" aria-hidden="true">🇧🇷</span><span>PT</span>
+    </button>
+    <button type="button" class="lang-btn" id="btnLangEn" data-lang="en" aria-pressed="false" title="English">
+      <span class="flag" aria-hidden="true">🇺🇸</span><span>EN</span>
+    </button>
+  </div>
+  <a class="tool ghost" href="docs.html" data-i18n="navDocumentacao" data-i18n-title="navDocumentacaoTitulo" title="Manual e declaração de privacidade">Documentação</a>
+  <a class="tool ghost" href="sobre.html" data-i18n="navSobre" data-i18n-title="navSobreTitulo" title="Sobre o projeto e contato">Sobre</a>
+  <button class="tool ghost" id="btnAjuda" data-i18n="btnAjuda" data-i18n-title="btnAjudaTitulo" title="Ajuda, atalhos e privacidade">Ajuda</button>
 </header>
 
 <nav class="rail" aria-label="Ferramentas">
-  <button class="tool primary" id="btnOpen">Abrir desenho</button>
+  <button class="tool primary" id="btnOpen" data-i18n="btnOpen">Abrir desenho</button>
   <input type="file" id="file" accept="application/pdf,image/*" hidden>
   <span class="sep"></span>
 
-  <button class="tool" id="btnPrev" disabled title="Página anterior">◀</button>
+  <button class="tool" id="btnPrev" disabled data-i18n-title="btnPrevTitulo" title="Página anterior">◀</button>
   <span class="zoomval" id="pageLabel">–/–</span>
-  <button class="tool" id="btnNext" disabled title="Próxima página">▶</button>
+  <button class="tool" id="btnNext" disabled data-i18n-title="btnNextTitulo" title="Próxima página">▶</button>
   <span class="sep"></span>
 
-  <button class="tool" id="btnZoomOut" title="Reduzir">−</button>
+  <button class="tool" id="btnZoomOut" data-i18n-title="btnZoomOutTitulo" title="Reduzir">−</button>
   <span class="zoomval" id="zoomLabel">100%</span>
-  <button class="tool" id="btnZoomIn" title="Ampliar">+</button>
-  <button class="tool" id="btnFit">Ajustar</button>
+  <button class="tool" id="btnZoomIn" data-i18n-title="btnZoomInTitulo" title="Ampliar">+</button>
+  <button class="tool" id="btnFit" data-i18n="btnFit">Ajustar</button>
   <span class="sep"></span>
 
-  <button class="tool" id="btnMode" aria-pressed="true">Modo: bolear</button>
+  <button class="tool" id="btnMode" aria-pressed="true" data-i18n="modoBolear">Modo: bolear</button>
   <div class="group">
-    <label for="selShape">Forma</label>
+    <label for="selShape" data-i18n="labelForma">Forma</label>
     <select id="selShape">
-      <option value="circle">Círculo</option>
-      <option value="square">Quadrado</option>
-      <option value="diamond">Losango</option>
-      <option value="hex">Hexágono</option>
+      <option value="circle" data-i18n="formaCirculo">Círculo</option>
+      <option value="square" data-i18n="formaQuadrado">Quadrado</option>
+      <option value="diamond" data-i18n="formaLosango">Losango</option>
+      <option value="hex" data-i18n="formaHexagono">Hexágono</option>
     </select>
   </div>
   <div class="group">
-    <label for="selColor">Cor</label>
+    <label for="selColor" data-i18n="labelCor">Cor</label>
     <select id="selColor">
-      <option value="preto">Preto</option>
-      <option value="vermelho">Vermelho</option>
-      <option value="azul" selected>Azul</option>
+      <option value="preto" data-i18n="corPreto">Preto</option>
+      <option value="vermelho" data-i18n="corVermelho">Vermelho</option>
+      <option value="azul" selected data-i18n="corAzul">Azul</option>
     </select>
   </div>
   <div class="group">
-    <label for="rngSize">Tamanho</label>
+    <label for="rngSize" data-i18n="labelTamanho">Tamanho</label>
     <input type="range" id="rngSize" min="8" max="45" step="1" value="20">
   </div>
   <div class="group">
-    <label for="numStart">Início</label>
+    <label for="numStart" data-i18n="labelInicio">Início</label>
     <input type="number" id="numStart" min="1" step="1" value="1">
   </div>
   <span class="sep"></span>
 
-  <button class="tool" id="btnRenumber">Renumerar</button>
-  <button class="tool" id="btnUndo">Desfazer</button>
-  <button class="tool" id="btnClear">Limpar página</button>
+  <button class="tool" id="btnRenumber" data-i18n="btnRenumber">Renumerar</button>
+  <button class="tool" id="btnUndo" data-i18n="btnUndo">Desfazer</button>
+  <button class="tool" id="btnClear" data-i18n="btnClear">Limpar página</button>
   <span class="sep"></span>
 
-  <button class="tool" id="btnPdf" title="Grava os balões sobre o desenho original, em todas as páginas">Exportar PDF</button>
-  <button class="tool" id="btnPng" title="Página atual como imagem">Exportar PNG</button>
+  <button class="tool" id="btnPdf" data-i18n="btnPdf" data-i18n-title="btnPdfTitulo" title="Grava os balões sobre o desenho original, em todas as páginas">Exportar PDF</button>
+  <button class="tool" id="btnPng" data-i18n="btnPng" data-i18n-title="btnPngTitulo" title="Página atual como imagem">Exportar PNG</button>
 </nav>
 
 <main class="viewer" id="viewer">
@@ -103,55 +112,55 @@
   </div>
   <div class="empty" id="empty">
     <div class="card">
-      <h2>Carregue o desenho</h2>
-      <p>Solte aqui um PDF ou uma imagem (PNG, JPG) do desenho. Depois clique sobre cada cota para marcar o balão — a numeração segue a ordem dos cliques.</p>
-      <button class="tool primary" id="btnOpen2">Abrir desenho</button>
-      <p class="local">O arquivo é aberto e processado no seu próprio computador. Nada é enviado para servidor ou nuvem.</p>
+      <h2 data-i18n="vazioTitulo">Carregue o desenho</h2>
+      <p data-i18n="vazioTexto">Solte aqui um PDF ou uma imagem (PNG, JPG) do desenho. Depois clique sobre cada cota para marcar o balão — a numeração segue a ordem dos cliques.</p>
+      <button class="tool primary" id="btnOpen2" data-i18n="btnOpen">Abrir desenho</button>
+      <p class="local" data-i18n="vazioLocal">O arquivo é aberto e processado no seu próprio computador. Nada é enviado para servidor ou nuvem.</p>
     </div>
   </div>
 </main>
 
 <footer class="status">
   <span id="stCoord">X — · Y —</span>
-  <span id="stSel">Nenhum balão selecionado</span>
-  <span class="badge" title="Todo o processamento acontece no navegador">Processamento local</span>
-  <span class="hint">Del apaga · setas movem · Ctrl+Z desfaz · arraste para reposicionar</span>
+  <span id="stSel" data-i18n="semSelecao">Nenhum balão selecionado</span>
+  <span class="badge" data-i18n="statusLocal" data-i18n-title="statusLocalTitulo" title="Todo o processamento acontece no navegador">Processamento local</span>
+  <span class="hint" data-i18n="statusDica">Del apaga · setas movem · Ctrl+Z desfaz · arraste para reposicionar</span>
 </footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <dialog id="dlgAjuda" class="dlg">
   <article>
-    <h2>Boleador de Desenho</h2>
+    <h2 data-i18n="tituloPagina">Boleador de Desenho</h2>
 
-    <h3>Como usar</h3>
+    <h3 data-i18n="h3ComoUsar">Como usar</h3>
     <ol>
-      <li>Abra o desenho em PDF (várias páginas) ou imagem PNG/JPG — pode arrastar o arquivo para a tela.</li>
-      <li>Com o botão em <strong>Modo: bolear</strong>, clique sobre cada cota. O balão recebe o próximo número da sequência.</li>
-      <li>Arraste o balão para ajustar a posição; setas do teclado fazem o ajuste fino (Shift = passo maior).</li>
-      <li><strong>Renumerar</strong> reordena tudo na ordem de leitura do desenho: de cima para baixo, da esquerda para a direita.</li>
-      <li><strong>Exportar PDF</strong> grava os balões sobre o desenho original, em todas as páginas de uma vez. O desenho continua vetorial — texto e cotas seguem nítidos em qualquer ampliação e o arquivo fica leve.</li>
-      <li><strong>Exportar PNG</strong> gera a página atual como imagem, útil para colar direto em relatório ou apresentação.</li>
+      <li data-i18n-html="passo1">Abra o desenho em PDF (várias páginas) ou imagem PNG/JPG — pode arrastar o arquivo para a tela.</li>
+      <li data-i18n-html="passo2">Com o botão em <strong>Modo: bolear</strong>, clique sobre cada cota. O balão recebe o próximo número da sequência.</li>
+      <li data-i18n-html="passo3">Arraste o balão para ajustar a posição; setas do teclado fazem o ajuste fino (Shift = passo maior).</li>
+      <li data-i18n-html="passo4"><strong>Renumerar</strong> reordena tudo na ordem de leitura do desenho: de cima para baixo, da esquerda para a direita.</li>
+      <li data-i18n-html="passo5"><strong>Exportar PDF</strong> grava os balões sobre o desenho original, em todas as páginas de uma vez. O desenho continua vetorial — texto e cotas seguem nítidos em qualquer ampliação e o arquivo fica leve.</li>
+      <li data-i18n-html="passo6"><strong>Exportar PNG</strong> gera a página atual como imagem, útil para colar direto em relatório ou apresentação.</li>
     </ol>
 
-    <h3>Cor e forma</h3>
-    <p>Cor do balão: preto, vermelho ou azul. Forma: círculo, quadrado, losango ou hexágono. As duas seguem a convenção adotada pela empresa ou pelo cliente — é comum reservar o vermelho para característica crítica ou de segurança e o preto para cota comum. Com um balão selecionado, trocar a cor ou a forma altera aquele balão; sem seleção, a escolha vale para os próximos.</p>
+    <h3 data-i18n="h3CorForma">Cor e forma</h3>
+    <p data-i18n="corFormaTexto">Cor do balão: preto, vermelho ou azul. Forma: círculo, quadrado, losango ou hexágono. As duas seguem a convenção adotada pela empresa ou pelo cliente — é comum reservar o vermelho para característica crítica ou de segurança e o preto para cota comum. Com um balão selecionado, trocar a cor ou a forma altera aquele balão; sem seleção, a escolha vale para os próximos.</p>
 
-    <h3>Atalhos</h3>
+    <h3 data-i18n="h3Atalhos">Atalhos</h3>
     <ul class="kbd">
-      <li><kbd>Del</kbd> apaga o balão selecionado</li>
-      <li><kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd> movem o balão selecionado</li>
-      <li><kbd>Shift</kbd> + setas movem com passo maior</li>
-      <li><kbd>Ctrl</kbd>+<kbd>Z</kbd> desfaz</li>
+      <li data-i18n-html="atalhoDel"><kbd>Del</kbd> apaga o balão selecionado</li>
+      <li data-i18n-html="atalhoSetas"><kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd> movem o balão selecionado</li>
+      <li data-i18n-html="atalhoShift"><kbd>Shift</kbd> + setas movem com passo maior</li>
+      <li data-i18n-html="atalhoUndo"><kbd>Ctrl</kbd>+<kbd>Z</kbd> desfaz</li>
     </ul>
 
-    <h3>Confidencialidade</h3>
-    <p>O desenho é aberto pelo próprio navegador e permanece somente na memória do seu computador. <strong>Não existe upload, servidor de aplicação, banco de dados ou nuvem</strong> — o arquivo nunca é transmitido. Fechou a aba, não sobra nada: o que você quiser guardar sai por "Exportar PNG" ou "Salvar projeto", salvos onde você escolher.</p>
-    <p>As únicas requisições de rede são o download das bibliotecas de leitura e gravação de PDF e das fontes. Para uso em rede fechada ou com desenho sob NDA, veja a <a href="docs.html#privacidade">declaração de privacidade</a> e o <a href="docs.html#offline">modo offline</a> descrito no manual.</p>
+    <h3 data-i18n="h3Confidencialidade">Confidencialidade</h3>
+    <p data-i18n-html="confidencialidade1">O desenho é aberto pelo próprio navegador e permanece somente na memória do seu computador. <strong>Não existe upload, servidor de aplicação, banco de dados ou nuvem</strong> — o arquivo nunca é transmitido. Fechou a aba, não sobra nada: o que você quiser guardar sai por "Exportar PNG" ou "Salvar projeto", salvos onde você escolher.</p>
+    <p data-i18n-html="confidencialidade2">As únicas requisições de rede são o download das bibliotecas de leitura e gravação de PDF e das fontes. Para uso em rede fechada ou com desenho sob NDA, veja a <a href="docs.html#privacidade">declaração de privacidade</a> e o <a href="docs.html#offline">modo offline</a> descrito no manual.</p>
 
-    <p class="ver">Versão <span id="fVer2">—</span></p>
+    <p class="ver"><span data-i18n="campoVersao">Versão</span> <span id="fVer2">—</span></p>
   </article>
-  <form method="dialog"><button class="tool primary">Fechar</button></form>
+  <form method="dialog"><button class="tool primary" data-i18n="btnFechar">Fechar</button></form>
 </dialog>
 
 <script src="js/core.js"></script>

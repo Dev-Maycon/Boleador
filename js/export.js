@@ -17,7 +17,7 @@
 
     /* ================= PNG ================= */
     png: function () {
-      if (!E.tipo) { B.aviso("Carregue um desenho primeiro."); return; }
+      if (!E.tipo) { B.aviso(B.t("msgCarregarPrimeiro")); return; }
       var destino = document.createElement("canvas");
 
       if (E.tipo === "img") {
@@ -43,7 +43,7 @@
         });
       }).catch(function (err) {
         console.error(err);
-        B.aviso("Não foi possível gerar o PNG desta página.");
+        B.aviso(B.t("msgPngErro"));
       });
 
       function finalizar(c) {
@@ -56,17 +56,17 @@
 
     /* ================= PDF ================= */
     pdf: function () {
-      if (!E.tipo || !E.arquivo) { B.aviso("Carregue um desenho primeiro."); return; }
+      if (!E.tipo || !E.arquivo) { B.aviso(B.t("msgCarregarPrimeiro")); return; }
       if (!window.PDFLib) {
-        B.aviso("Biblioteca de PDF ainda não carregou. Verifique a conexão ou use o modo offline (pasta vendor).");
+        B.aviso(B.t("msgPdfLibIndisponivel"));
         return;
       }
-      if (!E.baloes.length) { B.aviso("Ainda não há balões para gravar no PDF."); return; }
+      if (!E.baloes.length) { B.aviso(B.t("msgSemBaloesPdf")); return; }
 
-      B.aviso("Gerando o PDF…");
+      B.aviso(B.t("msgGerandoPdf"));
       gerarPdf().catch(function (err) {
         console.error(err);
-        B.aviso("Não foi possível gerar o PDF. Se o arquivo original for protegido por senha, remova a proteção e tente de novo.");
+        B.aviso(B.t("msgPdfErro"));
       });
     },
 
@@ -102,7 +102,7 @@
 
     var saida = await doc.save();
     B.baixar(new Blob([saida], { type: "application/pdf" }), B.nomeBase() + "-boleado.pdf");
-    B.aviso("PDF gerado com " + E.baloes.length + " balões.");
+    B.aviso(B.t("msgPdfGerado", { n: E.baloes.length }));
   }
 
   function desenharBalao(pagina, b, fonte) {

@@ -28,7 +28,7 @@
       E.arquivo = arquivo;   // guardado para a exportação em PDF
       if (arquivo.type === "application/pdf" || /\.pdf$/i.test(arquivo.name)) abrirPdf(arquivo);
       else if (arquivo.type.indexOf("image/") === 0) abrirImagem(arquivo);
-      else B.aviso("Formato não suportado. Use PDF, PNG ou JPG.");
+      else B.aviso(B.t("msgFormatoInvalido"));
     },
 
     /* ---------- renderização ---------- */
@@ -79,7 +79,7 @@
 
   function abrirPdf(arquivo) {
     if (!window.pdfjsLib) {
-      B.aviso("Leitor de PDF ainda não carregou. Verifique a conexão ou instale o modo offline (pasta vendor).");
+      B.aviso(B.t("msgPdfjsIndisponivel"));
       return;
     }
     pdfjsLib.GlobalWorkerOptions.workerSrc = window.BOLEADOR_CFG.workerSrc();
@@ -95,7 +95,7 @@
         renderizar().then(function () { B.viewer.ajustarLargura(); });
       }).catch(function (err) {
         console.error(err);
-        B.aviso("Não foi possível abrir este PDF.");
+        B.aviso(B.t("msgPdfAbrirErro"));
       });
     };
     fr.readAsArrayBuffer(arquivo);
@@ -111,7 +111,7 @@
       E.pagina = 1;
       renderizar().then(function () { B.viewer.ajustarLargura(); });
     };
-    img.onerror = function () { B.aviso("Não foi possível abrir esta imagem."); };
+    img.onerror = function () { B.aviso(B.t("msgImagemAbrirErro")); };
     img.src = url;
   }
 

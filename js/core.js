@@ -36,7 +36,7 @@ window.Boleador = window.Boleador || {};
     vermelho: "#C62828",
     azul:     "#1B49C4"
   };
-  B.NOMES_COR = { preto: "Preto", vermelho: "Vermelho", azul: "Azul" };
+  B.CHAVES_NOME_COR = { preto: "corPreto", vermelho: "corVermelho", azul: "corAzul" };
   B.COR_PADRAO = "azul";
   B.DESTAQUE = "#E8A317";   // realce do balão selecionado
 
@@ -49,8 +49,8 @@ window.Boleador = window.Boleador || {};
   };
 
   B.nomeCorDe = function (b) {
-    if (b.cor && B.NOMES_COR[b.cor]) return B.NOMES_COR[b.cor];
-    return B.NOMES_COR[B.COR_PADRAO];
+    var chave = (b.cor && B.CHAVES_NOME_COR[b.cor]) || B.CHAVES_NOME_COR[B.COR_PADRAO];
+    return B.t(chave);
   };
 
   /* ---------- eventos internos ---------- */
